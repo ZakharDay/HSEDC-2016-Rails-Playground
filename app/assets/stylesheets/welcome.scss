@@ -1,0 +1,39 @@
+@import 'compass/css3';
+
+@mixin square($s: 100%) {
+  width: $s;
+  height: $s;
+}
+
+.color {
+  &.red {
+    color: red;
+
+    &::after {
+      background-image: image_url('red.svg');
+    }
+  }
+
+  &.blue {
+    color: blue;
+
+    &::after {
+      background-image: image_url('blue.svg');
+    }
+  }
+
+  &.cyan {
+    color: cyan;
+
+    &::after {
+      background-image: image_url('cyan.png');
+    }
+  }
+
+  &::after {
+    display: inline-block;
+    content: '';
+    @include square(50px);
+    background-size: cover;
+  }
+}
