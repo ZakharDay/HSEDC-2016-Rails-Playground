@@ -1,3 +1,8 @@
+<% content_for :menu do %>
+  Post Show:
+  <%= @post.title %>
+<% end %>
+
 <p id="notice"><%= notice %></p>
 
 <article>
@@ -5,7 +10,26 @@
   <p><%= @post.teaser %></p>
   <%= image_tag '/uploads/' + @post.image if @post.image %>
   <%= raw @post.body %>
-</article>
 
-<%= link_to 'Edit', edit_post_path(@post) %> |
-<%= link_to 'Back', posts_path %>
+  <section id="comments">
+    <hr>
+
+    <h2>Comments</h2>
+
+    <% @post.comments.each do |comment| %>
+      <% if comment.persisted? %>
+        <p id="comment_<%= comment.id %>">
+          <%= comment.body %>
+          <%= link_to 'Destroy', post_comment_path(@post, comment), method: :delete, data: { confirm: 'Are you sure?' } %>
+        </p>
+      <% end %>
+    <% end %>
+
+    <%= render 'comments/form', comment: @comment %>
+
+    <hr>
+  </section>
+
+  <%= link_to 'Edit', edit_post_path(@post) %> |
+  <%= link_to 'Back', posts_path %>
+</article>
